@@ -5,7 +5,7 @@ iOS app written in Swift that lets you create and upvote events on a map to get 
 ```
 pod install
 ```
-Run with Xcode
+Open Now.xcworkspace with Xcode
 
 # Features
 
