@@ -1,7 +1,7 @@
 # Now
 
 use_frameworks!
-platform :ios, '9.0'
+platform :ios, '10.2'
 
 pod 'GoogleMaps'
 pod 'Firebase'
