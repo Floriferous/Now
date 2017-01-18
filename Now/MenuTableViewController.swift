@@ -17,15 +17,15 @@ class MenuTableViewController: UITableViewController {
     var currentUser: User?
     
     // Private properties
-    private var ref: FIRDatabaseReference!
-    private var _refHandles: FIRDatabaseHandle!
+    fileprivate var ref: FIRDatabaseReference!
+    fileprivate var _refHandles: FIRDatabaseHandle!
     
     // Storyboard outlets and actions
     @IBOutlet weak var SignInOutCell: UITableViewCell!
     @IBOutlet weak var MyProfileCell: UITableViewCell!
     @IBOutlet weak var MyPostsCell: UITableViewCell!
     @IBOutlet weak var UppedPostsCell: UITableViewCell!
-    @IBAction func unwindToMenu(segue: UIStoryboardSegue) {}
+    @IBAction func unwindToMenu(_ segue: UIStoryboardSegue) {}
     
     // Viewcontroller lifecycle
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class MenuTableViewController: UITableViewController {
         ref = FIRDatabase.database().reference()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         clearCellTexts()
@@ -42,12 +42,12 @@ class MenuTableViewController: UITableViewController {
     }
     
     // Tableview Datasource
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // Deselect row automatically
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath)
+        let selectedCell = tableView.cellForRow(at: indexPath)
         if selectedCell != nil {
             switch selectedCell!.reuseIdentifier! {
             case CellIdentifiers.MyProfile: myProfile()
@@ -60,7 +60,7 @@ class MenuTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // The first section requires log in
         if (indexPath.section == 0) {
             if let _ = FIRAuth.auth()?.currentUser {
@@ -74,20 +74,20 @@ class MenuTableViewController: UITableViewController {
     }
     
     // Static cell functions
-    private func myProfile() {
+    fileprivate func myProfile() {
         
     }
     
-    private func myPosts() {
+    fileprivate func myPosts() {
         
     }
     
-    private func uppedPosts() {
+    fileprivate func uppedPosts() {
         
         
     }
     
-    private func signInOut() {
+    fileprivate func signInOut() {
         
         if let _ = FIRAuth.auth()?.currentUser {
             // Sign Out
@@ -96,15 +96,15 @@ class MenuTableViewController: UITableViewController {
                 clearCellTexts()
                 
             } catch let error {
-                let alertcontroller = UIAlertController(title: "Sign Out Error", message: String(error), preferredStyle: .Alert)
-                let defaultAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+                let alertcontroller = UIAlertController(title: "Sign Out Error", message: String(describing: error), preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                 
                 alertcontroller.addAction(defaultAction)
-                self.presentViewController(alertcontroller, animated: true, completion: nil)
+                self.present(alertcontroller, animated: true, completion: nil)
             }
         } else {
             // Sign In
-            performSegueWithIdentifier(Storyboard.LoginSegue, sender: "Sign In Cell")
+            performSegue(withIdentifier: Storyboard.LoginSegue, sender: "Sign In Cell")
         }
         
         // So that the 3 first rows hide and appear properly
@@ -112,7 +112,7 @@ class MenuTableViewController: UITableViewController {
         tableView.endUpdates()
     }
     
-    private func updateCellTexts() {
+    fileprivate func updateCellTexts() {
         // Switch sign in/out cell text
         if let _ = FIRAuth.auth()?.currentUser {
             SignInOutCell.textLabel?.text = "Sign Out"
@@ -131,7 +131,7 @@ class MenuTableViewController: UITableViewController {
         
     }
     
-    private func clearCellTexts() {
+    fileprivate func clearCellTexts() {
         if let _ = FIRAuth.auth()?.currentUser {
             SignInOutCell.textLabel?.text = "Sign Out"
         } else {
@@ -142,13 +142,13 @@ class MenuTableViewController: UITableViewController {
         }
     }
     
-    private func about() {
+    fileprivate func about() {
         
     }
     
-    private func getCurrentUserFromFirebase(withClosure closure : () -> Void) {
+    fileprivate func getCurrentUserFromFirebase(withClosure closure : @escaping () -> Void) {
         if let currentAuthUser = FIRAuth.auth()?.currentUser {
-            ref.child("users").child(currentAuthUser.uid).observeSingleEventOfType(.Value) { (userSnapshot: FIRDataSnapshot) -> Void in
+            ref.child("users").child(currentAuthUser.uid).observeSingleEvent(of: .value) { (userSnapshot: FIRDataSnapshot) -> Void in
                 let newCurrentUser = User(snapshot: userSnapshot)
                 self.currentUser = newCurrentUser
                 closure()
@@ -158,25 +158,25 @@ class MenuTableViewController: UITableViewController {
     
     
     // Prepare for segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.MyPostsSegue:
-                if let vc = segue.destinationViewController as? PostTableViewController {
+                if let vc = segue.destination as? PostTableViewController {
                     vc.forSpecificUser = true
                     if currentUser != nil {
                         vc.userId = currentUser!.id!
                     }
                 }
             case Storyboard.MyUppedPostsSegue:
-                if let vc = segue.destinationViewController as? PostTableViewController {
+                if let vc = segue.destination as? PostTableViewController {
                     vc.forUserUps = true
                     if currentUser != nil {
                         vc.userId = currentUser!.id!
                     }
                 }
             case Storyboard.MyProfileSegue:
-                if let vc = segue.destinationViewController as? MyProfileViewController {
+                if let vc = segue.destination as? MyProfileViewController {
                     if currentUser != nil {
                         vc.currentUser = currentUser!
                         vc.navigationItem.title = "Me"
@@ -185,9 +185,9 @@ class MenuTableViewController: UITableViewController {
                     }
                 }
             case Storyboard.LoginSegue:
-                if let vc = segue.destinationViewController as? SignInViewController {
+                if let vc = segue.destination as? SignInViewController {
                     if sender != nil {
-                    if String(sender!) == "Sign In Cell" {
+                    if String(describing: sender!) == "Sign In Cell" {
                         vc.fromSignInButton = true
                     }
                     }
@@ -199,7 +199,7 @@ class MenuTableViewController: UITableViewController {
     
     
     // Identifiers for each cell
-    private struct CellIdentifiers {
+    fileprivate struct CellIdentifiers {
         static let MyProfile = "My Profile"
         static let MyPosts = "My Posts"
         static let UppedPosts = "Upped Posts"
@@ -208,7 +208,7 @@ class MenuTableViewController: UITableViewController {
     }
     
     // Storyboard Constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let LoginSegue = "Log In"
         static let MyPostsSegue = "Show My Posts"
         static let MyUppedPostsSegue = "Show My Upped Posts"

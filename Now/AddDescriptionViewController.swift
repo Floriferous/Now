@@ -19,8 +19,8 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
     var currentUser: User?
     
     // Private properties
-    private var ref: FIRDatabaseReference!
-    private var storageRef: FIRStorageReference!
+    fileprivate var ref: FIRDatabaseReference!
+    fileprivate var storageRef: FIRStorageReference!
     
     // Storyboard outlets and actions
     @IBOutlet weak var PostTitle: UITextView!
@@ -39,20 +39,20 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
     }
     
     // Setup
-    private func setOutlets() {
+    fileprivate func setOutlets() {
         PostTitle.delegate = self
         PostDescription.delegate = self
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(hitDone(_:)))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(hitDone(_:)))
         self.navigationItem.rightBarButtonItem = doneButton
     }
     
-    func hitDone(sender: AnyObject?) {
+    func hitDone(_ sender: AnyObject?) {
         // Verify if user is logged in
         if let _ = FIRAuth.auth()?.currentUser {
             // is logged in
         } else {
-            performSegueWithIdentifier(Storyboard.LoginSegue, sender: nil)
+            performSegue(withIdentifier: Storyboard.LoginSegue, sender: nil)
             return
         }
         
@@ -60,12 +60,12 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
         getCurrentUserFromFirebase() { [weak weakSelf = self] in
             do {
                 try self.createPost()
-                weakSelf?.performSegueWithIdentifier(Storyboard.UnwindToMapSegue, sender: sender)
-            } catch PostCreationError.LocationError {
+                weakSelf?.performSegue(withIdentifier: Storyboard.UnwindToMapSegue, sender: sender)
+            } catch PostCreationError.locationError {
                 // smth
-            } catch PostCreationError.TitleError {
+            } catch PostCreationError.titleError {
                 print("title error")
-            } catch PostCreationError.DescriptionError {
+            } catch PostCreationError.descriptionError {
                 print("description error")
             } catch {
                 print("other error")
@@ -73,26 +73,26 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
         }
     }
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         switch textView {
         case PostTitle: TitleCount.text = String((PostTitle.text?.characters.count)!) + "/40"
         if PostTitle.text.characters.count > 0 {
-            TitlePlaceholder.hidden = true
+            TitlePlaceholder.isHidden = true
         } else {
-            TitlePlaceholder.hidden = false
+            TitlePlaceholder.isHidden = false
             }
         case PostDescription: DescriptionCount.text = String((PostDescription.text?.characters.count)!) + "/200"
         if PostDescription.text.characters.count > 0 {
-            DescriptionPlaceHolder.hidden = true
+            DescriptionPlaceHolder.isHidden = true
         } else {
-            DescriptionPlaceHolder.hidden = false
+            DescriptionPlaceHolder.isHidden = false
             }
         default: break
         }
     }
     
     // General functions
-    private func createPost() throws {
+    fileprivate func createPost() throws {
         
         // Prepare data for the new post
         var data = [String: AnyObject]()
@@ -103,29 +103,29 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
         
         
         guard 2...40 ~= Int((PostTitle.text?.characters.count)!) else {
-            throw PostCreationError.TitleError
+            throw PostCreationError.titleError
         }
-        data[PostFields.title] = PostTitle.text! as String
+        data[PostFields.title] = PostTitle.text! as String as AnyObject?
         
         guard -90...90 ~= Double(newPostLocation!.latitude) else {
-            throw PostCreationError.LocationError
+            throw PostCreationError.locationError
         }
         data[PostFields.latitude] = newPostLocation!.latitude as NSNumber
         
         guard -180...180 ~= Double(newPostLocation!.longitude) else {
-            throw PostCreationError.LocationError
+            throw PostCreationError.locationError
         }
         data[PostFields.longitude] = newPostLocation!.longitude as NSNumber
         
         // Verify if user gave a description
         if let description = PostDescription.text {
             guard 0...200 ~= Int((PostDescription.text?.characters.count)!) else {
-                throw PostCreationError.DescriptionError
+                throw PostCreationError.descriptionError
             }
-            data[PostFields.description] = description
+            data[PostFields.description] = description as AnyObject?
         }
         if currentUser != nil {
-            data[PostFields.userId] = currentUser!.id!
+            data[PostFields.userId] = currentUser!.id! as AnyObject?
             data[PostFields.date] = [".sv": "timestamp"]
             
             
@@ -139,7 +139,7 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
             
             // Verify if image exists
             guard newPostPicture != nil else {
-                throw PostCreationError.NoImage
+                throw PostCreationError.noImage
             }
             
             // prepare large and small images
@@ -151,10 +151,10 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
             metadata.contentType = "image/jpeg"
             
             // show network activity indicator and push both images to firebase
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             storageRef.child(largeImagePath)
-                .putData(largeImageData, metadata: metadata) { (metadata, error) in
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                .put(largeImageData, metadata: metadata) { (metadata, error) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     if let error = error {
                         print("Error uploading: \(error)")
@@ -162,7 +162,7 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
                     }
             }
             storageRef.child(smallImagePath)
-                .putData(smallImageData, metadata: metadata) { (metadata, error) in
+                .put(smallImageData, metadata: metadata) { (metadata, error) in
                     if let error = error {
                         print("Error uploading: \(error)")
                         return
@@ -179,7 +179,7 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
         
     }
     
-    @objc private func updateCharacterCount(sender: AnyObject?) {
+    @objc fileprivate func updateCharacterCount(_ sender: AnyObject?) {
         if let textField = sender as? UITextField {
             switch textField {
             case PostTitle: TitleCount.text = String((PostTitle.text?.characters.count)!) + "/40"
@@ -189,9 +189,9 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
         }
     }
     
-    private func getCurrentUserFromFirebase(withClosure closure : () -> Void) {
+    fileprivate func getCurrentUserFromFirebase(withClosure closure : @escaping () -> Void) {
         if let currentAuthUser = FIRAuth.auth()?.currentUser {
-            ref.child("users").child(currentAuthUser.uid).observeSingleEventOfType(.Value)
+            ref.child("users").child(currentAuthUser.uid).observeSingleEvent(of: .value)
             { [weak weakSelf = self] (userSnapshot: FIRDataSnapshot) -> Void in
                 if weakSelf != nil {
                     let newCurrentUser = User(snapshot: userSnapshot)
@@ -208,15 +208,15 @@ class AddDescriptionViewController: UIViewController, UITextFieldDelegate, UITex
     
     
     // Post creation errors
-    enum PostCreationError: ErrorType {
-        case TitleError
-        case DescriptionError
-        case LocationError
-        case NoImage
+    enum PostCreationError: Error {
+        case titleError
+        case descriptionError
+        case locationError
+        case noImage
     }
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let UnwindToMapSegue = "Unwind To Map"
         static let LoginSegue = "Log In"
     }

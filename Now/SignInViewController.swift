@@ -9,13 +9,37 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var fromSignInButton = false
     
     // Private Properties
-    private var ref: FIRDatabaseReference!
+    fileprivate var ref: FIRDatabaseReference!
     
     // Storyboard outlets and actions
     @IBOutlet weak var usernameField: UITextField!
@@ -23,20 +47,20 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var GoodStuffLabel: UILabel!
     
-    @IBAction func CancelButton(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func CancelButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func tappedScrollView(sender: UITapGestureRecognizer) {
+    @IBAction func tappedScrollView(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     
-    @IBAction func createAccountButton(sender: UIButton) {
+    @IBAction func createAccountButton(_ sender: UIButton) {
         if self.emailField.text == nil || self.passwordField.text == nil || self.usernameField.text == nil {
             showErrorAlert("Oops", message: "Please enter something in every field!")
         } else {
             if self.usernameField.text?.characters.count >= 3 {
-                FIRAuth.auth()?.createUserWithEmail(self.emailField.text!, password: self.passwordField.text!) { [weak weakSelf = self] (user, error) in
+                FIRAuth.auth()?.createUser(withEmail: self.emailField.text!, password: self.passwordField.text!) { [weak weakSelf = self] (user, error) in
                     if error == nil {
                         weakSelf?.createUser(withId: user!.uid)
                         
@@ -45,7 +69,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                         weakSelf?.passwordField.text = ""
                         weakSelf?.usernameField.text = ""
                         
-                        weakSelf?.dismissViewControllerAnimated(true, completion: nil)
+                        weakSelf?.dismiss(animated: true, completion: nil)
                     } else {
                         weakSelf?.showErrorAlert("Account Creation Error", message: error?.localizedDescription)
                     }
@@ -56,11 +80,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func logInButton(sender: UIButton) {
+    @IBAction func logInButton(_ sender: UIButton) {
         if self.emailField.text == nil || self.passwordField.text == nil {
             showErrorAlert("Oops", message: "Please enter something in both fields!")
         } else {
-            FIRAuth.auth()?.signInWithEmail(self.emailField.text!, password: self.passwordField.text!) { [weak weakSelf = self] (user, error) in
+            FIRAuth.auth()?.signIn(withEmail: self.emailField.text!, password: self.passwordField.text!) { [weak weakSelf = self] (user, error) in
                 if error == nil {
                     // Log in success
                     //let user = User(
@@ -71,7 +95,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     //store in userdefaults
                     
                     // Go back to what you were doing
-                    weakSelf?.dismissViewControllerAnimated(true, completion: nil)
+                    weakSelf?.dismiss(animated: true, completion: nil)
                     
                 } else {
                     weakSelf?.showErrorAlert("Log In Error", message: error?.localizedDescription)
@@ -89,27 +113,27 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         passwordField.delegate = self
         
         if fromSignInButton {
-            GoodStuffLabel.hidden = true
+            GoodStuffLabel.isHidden = true
         }
     }
     
     
     // General functions
-    private func showErrorAlert(title: String, message: String?) {
-        let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let defaultAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+    fileprivate func showErrorAlert(_ title: String, message: String?) {
+        let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         
         alertcontroller.addAction(defaultAction)
-        self.presentViewController(alertcontroller, animated: true, completion: nil)
+        self.present(alertcontroller, animated: true, completion: nil)
     }
     
-    private func createUser(withId id: String) {
+    fileprivate func createUser(withId id: String) {
         // Prepare data for the new post
         var data = [String: AnyObject]()
         
         // This information is already verified
-        data[UserFields.username] = usernameField.text! as String
-        data[UserFields.email] = emailField.text! as String
+        data[UserFields.username] = usernameField.text! as String as AnyObject?
+        data[UserFields.email] = emailField.text! as String as AnyObject?
         data[UserFields.date] = [".sv": "timestamp"]
         data[UserFields.followers] = ["init": true]
         data[UserFields.following] = ["init": true]
@@ -118,17 +142,17 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         ref.child("users").child(id).setValue(data)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ShowMapSegue = "Show Map"
     }
 }

@@ -19,7 +19,7 @@ class UserTableViewCell: UITableViewCell {
     var ProfilePicture: UIImage? {
         didSet {
             UserImageView.image = nil
-            if user != nil && ProfilePicture != NSData() && ProfilePicture != nil {
+            if user != nil && ProfilePicture != Data() && ProfilePicture != nil {
                 UserImageView.image = ProfilePicture
             } else {
                 UserImageView.image = UIImage(named: "placeholder-user-photo.png")
@@ -32,11 +32,11 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var FollowerCountLabel: UILabel!
     @IBOutlet weak var UserImageView: UIImageView!
     @IBOutlet weak var FollowButtonOutlet: UIButton!
-    @IBAction func FollowButton(sender: UIButton) {
+    @IBAction func FollowButton(_ sender: UIButton) {
     }
     
     // Setup
-    private func updateUI() {
+    fileprivate func updateUI() {
         
         // reset info
         UsernameLabel.text = nil

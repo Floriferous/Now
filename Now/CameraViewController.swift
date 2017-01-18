@@ -15,19 +15,19 @@ class CameraViewController: UIViewController {
     var newPostPicture: UIImage?
     
     // Private properties
-    private let captureSession = AVCaptureSession()
-    private let stillImageOutput = AVCaptureStillImageOutput()
+    fileprivate let captureSession = AVCaptureSession()
+    fileprivate let stillImageOutput = AVCaptureStillImageOutput()
     
     // Storyboard outlets and actions
     @IBOutlet var CameraView: UIImageView!
     
-    @IBAction func TakePicture(sender: UIButton) {
-        if let videoConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
-            stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection) {
+    @IBAction func TakePicture(_ sender: UIButton) {
+        if let videoConnection = stillImageOutput.connection(withMediaType: AVMediaTypeVideo) {
+            stillImageOutput.captureStillImageAsynchronously(from: videoConnection) {
                 [weak weakSelf = self] (imageDataSampleBuffer, error) -> Void in
                 let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
-                weakSelf?.newPostPicture = UIImage(data: imageData)
-                weakSelf?.performSegueWithIdentifier(Storyboard.ConfirmPictureSegue, sender: sender)
+                weakSelf?.newPostPicture = UIImage(data: imageData!)
+                weakSelf?.performSegue(withIdentifier: Storyboard.ConfirmPictureSegue, sender: sender)
             }
         }
     }
@@ -38,14 +38,14 @@ class CameraViewController: UIViewController {
         self.setupCamera()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     // Setup
-    private func setupCamera() {
-        let devices = AVCaptureDevice.devices().filter{ $0.hasMediaType(AVMediaTypeVideo) && $0.position == AVCaptureDevicePosition.Back }
+    fileprivate func setupCamera() {
+        let devices = AVCaptureDevice.devices().filter{ ($0 as AnyObject).hasMediaType(AVMediaTypeVideo) && ($0 as AnyObject).position == AVCaptureDevicePosition.back }
         if let captureDevice = devices.first as? AVCaptureDevice  {
             do {
                 try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
@@ -56,8 +56,8 @@ class CameraViewController: UIViewController {
                     captureSession.addOutput(stillImageOutput)
                 }
                 if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
-                    previewLayer.bounds = CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.width)
-                    previewLayer.position = CGPointMake(self.view.bounds.midX, self.view.bounds.midY)
+                    previewLayer.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.width)
+                    previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
                     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
                     CameraView.layer.addSublayer(previewLayer)
                 }
@@ -68,11 +68,11 @@ class CameraViewController: UIViewController {
     }
 
     // Prepare for segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if newPostPicture != nil {
             if let identifier = segue.identifier {
                 if identifier == Storyboard.ConfirmPictureSegue {
-                    if let vc = segue.destinationViewController as? ConfirmPictureViewController {
+                    if let vc = segue.destination as? ConfirmPictureViewController {
                         vc.newPostPicture = newPostPicture
                     }
                 }
@@ -86,7 +86,7 @@ class CameraViewController: UIViewController {
     
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ConfirmPictureSegue = "Confirm Picture"
     }
 }

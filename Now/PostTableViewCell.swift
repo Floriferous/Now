@@ -22,7 +22,7 @@ class PostTableViewCell: UITableViewCell
     var userLocation: CLLocation?
     var postImage: UIImage? {
         didSet {
-            if post != nil && postImage != NSData() && postImage != nil {
+            if post != nil && postImage != Data() && postImage != nil {
                 PostImageView.image = postImage!
             }
         }
@@ -36,7 +36,7 @@ class PostTableViewCell: UITableViewCell
     @IBOutlet weak var PostTitle: UILabel!
     
     // Setup
-    private func updateUI() {
+    fileprivate func updateUI() {
         // reset info
         PostImageView?.image = nil
         PostDistance?.text = nil
@@ -48,12 +48,12 @@ class PostTableViewCell: UITableViewCell
             
             if userLocation != nil {
                 let postLocation = CLLocation(latitude: post!.latitude!, longitude: post!.longitude!)
-                if postLocation.distanceFromLocation(userLocation!) < 1000 {
-                    PostDistance?.text = String(Int(round(postLocation.distanceFromLocation(userLocation!) / 10) * 10)) + "m away"
-                } else if postLocation.distanceFromLocation(userLocation!) < 100000 {
-                    PostDistance?.text = String((round(postLocation.distanceFromLocation(userLocation!) / 100) * 100) / 1000) + "km away"
+                if postLocation.distance(from: userLocation!) < 1000 {
+                    PostDistance?.text = String(Int(round(postLocation.distance(from: userLocation!) / 10) * 10)) + "m away"
+                } else if postLocation.distance(from: userLocation!) < 100000 {
+                    PostDistance?.text = String((round(postLocation.distance(from: userLocation!) / 100) * 100) / 1000) + "km away"
                 } else {
-                    PostDistance?.text = String(Int((round(postLocation.distanceFromLocation(userLocation!) / 1000) * 1000) / 1000)) + "km away"
+                    PostDistance?.text = String(Int((round(postLocation.distance(from: userLocation!) / 1000) * 1000) / 1000)) + "km away"
                 }
             } else {
                 PostDistance.text = ""

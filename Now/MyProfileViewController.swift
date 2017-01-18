@@ -17,8 +17,8 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
     var currentUser: User?
     
     // Private properties
-    private var ref: FIRDatabaseReference!
-    private var storageRef: FIRStorageReference!
+    fileprivate var ref: FIRDatabaseReference!
+    fileprivate var storageRef: FIRStorageReference!
     
     // Storyboard Outlets
     @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
@@ -28,15 +28,15 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
     @IBOutlet weak var FollowersButtonOutlet: UIButton!
     
     // Storyboard Actions
-    @IBAction func FollowersButton(sender: UIButton) {
-        performSegueWithIdentifier(Storyboard.ShowFollowSegue, sender: sender)
+    @IBAction func FollowersButton(_ sender: UIButton) {
+        performSegue(withIdentifier: Storyboard.ShowFollowSegue, sender: sender)
     }
     
-    @IBAction func FollowingButton(sender: UIButton) {
-        performSegueWithIdentifier(Storyboard.ShowFollowSegue, sender: sender)
+    @IBAction func FollowingButton(_ sender: UIButton) {
+        performSegue(withIdentifier: Storyboard.ShowFollowSegue, sender: sender)
     }
     
-    @IBAction func ChangePictureButton(sender: UIButton) {
+    @IBAction func ChangePictureButton(_ sender: UIButton) {
         let fusuma = FusumaViewController()
         fusuma.delegate = self
         fusumaCropImage = true
@@ -57,15 +57,15 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
     }
     
     // Setup
-    private func setOutlets() {
+    fileprivate func setOutlets() {
         if currentUser != nil {
             UsernameLabel.text = currentUser!.username
             if currentUser!.followerCount! - 1 == 1 {
-                FollowersButtonOutlet.setTitle(String(currentUser!.followerCount! - 1) + " Follower", forState: .Normal)
+                FollowersButtonOutlet.setTitle(String(currentUser!.followerCount! - 1) + " Follower", for: UIControlState())
             } else {
-                FollowersButtonOutlet.setTitle(String(currentUser!.followerCount! - 1) + " Followers", forState: .Normal)
+                FollowersButtonOutlet.setTitle(String(currentUser!.followerCount! - 1) + " Followers", for: UIControlState())
             }
-            FollowingButtonOutlet.setTitle(String(currentUser!.followingCount! - 1) + " Following", forState: .Normal)
+            FollowingButtonOutlet.setTitle(String(currentUser!.followingCount! - 1) + " Following", for: UIControlState())
             setCurrentUserImage()
             // set profile picture
         }
@@ -73,9 +73,9 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
     
     
     // General Functions
-    private func getCurrentUserFromFirebase(withClosure closure : () -> Void) {
+    fileprivate func getCurrentUserFromFirebase(withClosure closure : @escaping () -> Void) {
         if let currentAuthUser = FIRAuth.auth()?.currentUser {
-            ref.child("users").child(currentAuthUser.uid).observeSingleEventOfType(.Value) { [weak weakSelf = self] (userSnapshot: FIRDataSnapshot) -> Void in
+            ref.child("users").child(currentAuthUser.uid).observeSingleEvent(of: .value) { [weak weakSelf = self] (userSnapshot: FIRDataSnapshot) -> Void in
                 let newCurrentUser = User(snapshot: userSnapshot)
                 weakSelf?.currentUser = newCurrentUser
                 closure()
@@ -86,16 +86,16 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
     
     // Fusuma Camera functions
     // Return the image which is selected from camera roll or is taken via the camera.
-    func fusumaImageSelected(image: UIImage) {
+    func fusumaImageSelected(_ image: UIImage) {
         setNewImage(image)
     }
     
     // Return the image but called after is dismissed.
-    func fusumaDismissedWithImage(image: UIImage) {
+    func fusumaDismissedWithImage(_ image: UIImage) {
         setNewImage(image)
     }
     
-    func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
         
         print("Called just after a video has been selected.")
     }
@@ -106,7 +106,7 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
         print("Camera roll unauthorized")
     }
     
-    private func setNewImage(image: UIImage) {
+    fileprivate func setNewImage(_ image: UIImage) {
         if let theCurrentUser = FIRAuth.auth()?.currentUser {
             ProfilePictureImageView.image = image
             let largeImageData = compressImage(image)
@@ -117,10 +117,10 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
             metadata.contentType = "image/jpeg"
             
             // show network activity indicator and push both images to firebase
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             storageRef.child(largeImagePath)
-                .putData(largeImageData, metadata: metadata) { (metadata, error) in
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                .put(largeImageData, metadata: metadata) { (metadata, error) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     if let error = error {
                         print("Error uploading: \(error)")
@@ -128,7 +128,7 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
                     }
             }
             storageRef.child(smallImagePath)
-                .putData(smallImageData, metadata: metadata) { (metadata, error) in
+                .put(smallImageData, metadata: metadata) { (metadata, error) in
                     if let error = error {
                         print("Error uploading: \(error)")
                         return
@@ -137,16 +137,16 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
         }
     }
     
-    private func setCurrentUserImage() {
+    fileprivate func setCurrentUserImage() {
         // Download the small image
         if let theCurrentUser = FIRAuth.auth()?.currentUser {
             ActivityIndicator.startAnimating()
-            storageRef.child("users").child(theCurrentUser.uid + "_large.jpg").dataWithMaxSize(INT64_MAX) { [weak weakSelf = self] (data, error) in
+            storageRef.child("users").child(theCurrentUser.uid + "_large.jpg").data(withMaxSize: INT64_MAX) { [weak weakSelf = self] (data, error) in
                 weakSelf?.ActivityIndicator.stopAnimating()
                 if let error = error {
                     print("Error downloading: \(error)")
                     
-                    if error.localizedDescription.containsString("does not exist") {
+                    if error.localizedDescription.contains("does not exist") {
                         weakSelf?.ProfilePictureImageView.image = UIImage(named: "placeholder-user-photo.png")
                     }
                     return
@@ -158,17 +158,17 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ShowFollowSegue:
-                if let vc = segue.destinationViewController as? UserTableViewController {
+                if let vc = segue.destination as? UserTableViewController {
                     if let sendingButton = sender as? UIButton {
                         if currentUser != nil {
                             vc.userId = currentUser!.id!
-                            if sendingButton.currentTitle!.containsString("Following") {
+                            if sendingButton.currentTitle!.contains("Following") {
                                 vc.forFollowing = true
-                            } else if sendingButton.currentTitle!.containsString("Follower") {
+                            } else if sendingButton.currentTitle!.contains("Follower") {
                                 vc.forFollowers = true
                             }
                         }
@@ -180,7 +180,7 @@ class MyProfileViewController: UIViewController, FusumaDelegate {
     }
     
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ShowFollowSegue = "Show Follows"
     }
     

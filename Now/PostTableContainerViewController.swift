@@ -19,9 +19,9 @@ class PostTableContainerViewController: UIViewController {
     @IBOutlet weak var MenuBarButton: UIBarButtonItem!
     @IBOutlet weak var AddPostButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var MapViewButton: UIButton!
-    @IBAction func unwindToList(segue: UIStoryboardSegue) {}
-    @IBAction func AddPostButton(sender: UIBarButtonItem) {
-        performSegueWithIdentifier(Storyboard.CreatePostSegue, sender: sender)
+    @IBAction func unwindToList(_ segue: UIStoryboardSegue) {}
+    @IBAction func AddPostButton(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: Storyboard.CreatePostSegue, sender: sender)
     }
     
     // Viewcontroller lifecycle
@@ -32,27 +32,27 @@ class PostTableContainerViewController: UIViewController {
     
     // Setup
     func setupButtons() {
-        MenuBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], forState: .Normal)
+        MenuBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], for: .Normal)
         MenuBarButton.title = String.fontAwesomeIconWithName(.Bars)
         
-        AddPostButtonOutlet.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], forState: .Normal)
+        AddPostButtonOutlet.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], for: .Normal)
         AddPostButtonOutlet.title = String.fontAwesomeIconWithName(.Plus)
         
-        MapViewButton.setTitle(String.fontAwesomeIconWithName(.Globe), forState: .Normal)
+        MapViewButton.setTitle(String.fontAwesomeIconWithName(.Globe), for: .Normal)
         MapViewButton.layer.cornerRadius = 20.0
-        MapViewButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        MapViewButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
     }
     
     // General functions
-    func doSegue(sender: AnyObject?) {
-        performSegueWithIdentifier(Storyboard.UnwindSegue, sender: sender)
+    func doSegue(_ sender: AnyObject?) {
+        performSegue(withIdentifier: Storyboard.UnwindSegue, sender: sender)
     }
     
     // Prepare for segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == Storyboard.ContainerViewSegue {
-                if let vc = segue.destinationViewController as? PostTableViewController {
+                if let vc = segue.destination as? PostTableViewController {
                     vc.userLocation = userLocation
                 }
             }
@@ -60,7 +60,7 @@ class PostTableContainerViewController: UIViewController {
     }
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ContainerViewSegue = "Show Container"
         static let UnwindSegue = "Unwind to Map"
         static let CreatePostSegue = "Create Post"

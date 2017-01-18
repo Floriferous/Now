@@ -11,15 +11,15 @@ import Firebase
 import FirebaseAuth
 
 class User {
-    private(set) var id: String?
-    private(set) var username: String?
-    private(set) var email: String?
-    private(set) var imageURL: NSURL?
-    private(set) var followerCount: Int?
-    private(set) var followingCount: Int?
-    private(set) var upCount: Int?
-    private(set) var postCount: Int?
-    private(set) var creationTime: NSDate?
+    fileprivate(set) var id: String?
+    fileprivate(set) var username: String?
+    fileprivate(set) var email: String?
+    fileprivate(set) var imageURL: URL?
+    fileprivate(set) var followerCount: Int?
+    fileprivate(set) var followingCount: Int?
+    fileprivate(set) var upCount: Int?
+    fileprivate(set) var postCount: Int?
+    fileprivate(set) var creationTime: Date?
     
     
     init() {}
@@ -33,13 +33,13 @@ class User {
         id = String(snapshot.key)
         username = snapshot.value![UserFields.username] as? String
         email = snapshot.value![UserFields.email] as? String
-        followerCount = Int(snapshot.childSnapshotForPath(UserFields.followers).childrenCount)
-        followingCount = Int(snapshot.childSnapshotForPath(UserFields.following).childrenCount)
-        upCount = Int(snapshot.childSnapshotForPath(UserFields.ups).childrenCount)
-        postCount = Int(snapshot.childSnapshotForPath(UserFields.posts).childrenCount)
+        followerCount = Int(snapshot.childSnapshot(forPath: UserFields.followers).childrenCount)
+        followingCount = Int(snapshot.childSnapshot(forPath: UserFields.following).childrenCount)
+        upCount = Int(snapshot.childSnapshot(forPath: UserFields.ups).childrenCount)
+        postCount = Int(snapshot.childSnapshot(forPath: UserFields.posts).childrenCount)
         
         if let time = snapshot.value![UserFields.date] as? Double {
-            creationTime = NSDate(timeIntervalSince1970: time/1000)
+            creationTime = Date(timeIntervalSince1970: time/1000)
         }
     }
     
@@ -53,11 +53,11 @@ class User {
     //    }
     
     // Create User array
-    class func parseFromSnapshot(snapshot: FIRDataSnapshot) -> [User] {
+    class func parseFromSnapshot(_ snapshot: FIRDataSnapshot) -> [User] {
         var users = [User]()
         for child in snapshot.children {
             let user = User.init(snapshot: child as! FIRDataSnapshot)
-            users.insert(user, atIndex: 0)
+            users.insert(user, at: 0)
         }
         return users
     }

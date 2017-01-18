@@ -18,32 +18,32 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
     var newPost: Post?
     
     // Private properties
-    private let locationManager = CLLocationManager()
-    private var ref: FIRDatabaseReference!
-    private var storageRef: FIRStorageReference!
-    private var newPostPictureData: NSData?
+    fileprivate let locationManager = CLLocationManager()
+    fileprivate var ref: FIRDatabaseReference!
+    fileprivate var storageRef: FIRStorageReference!
+    fileprivate var newPostPictureData: Data?
     
-    private var _refHandleAdded: FIRDatabaseHandle!
-    private var _refHandleRemoved: FIRDatabaseHandle!
+    fileprivate var _refHandleAdded: FIRDatabaseHandle!
+    fileprivate var _refHandleRemoved: FIRDatabaseHandle!
     
     // Storyboard outlets and actions
     @IBOutlet weak var MapView: GMSMapView!
     @IBOutlet weak var AddPostButtonOutlet: UIButton! { didSet {
-        AddPostButtonOutlet.setTitle(String.fontAwesomeIconWithName(.Plus), forState: .Normal)
+        AddPostButtonOutlet.setTitle(String.fontAwesomeIconWithName(.Plus), for: .Normal)
         AddPostButtonOutlet.layer.cornerRadius = 20.0
         addButtonShadow(AddPostButtonOutlet)} }
     @IBOutlet weak var ListViewButtonOutlet: UIButton! { didSet {
-        ListViewButtonOutlet.setTitle(String.fontAwesomeIconWithName(.ThList), forState: .Normal)
+        ListViewButtonOutlet.setTitle(String.fontAwesomeIconWithName(.ThList), for: .Normal)
         ListViewButtonOutlet.layer.cornerRadius = 20.0
         addButtonShadow(ListViewButtonOutlet)} }
     @IBOutlet weak var MenuButtonOutlet: UIButton! { didSet {
-        MenuButtonOutlet.setTitle(String.fontAwesomeIconWithName(.Bars), forState: .Normal)
+        MenuButtonOutlet.setTitle(String.fontAwesomeIconWithName(.Bars), for: .Normal)
         MenuButtonOutlet.layer.cornerRadius = 20.0
         addButtonShadow(MenuButtonOutlet)} }
-    @IBAction func unwindToMap(segue: UIStoryboardSegue) {}
+    @IBAction func unwindToMap(_ segue: UIStoryboardSegue) {}
     
-    @IBAction func AddPostButton(sender: UIButton) {
-        performSegueWithIdentifier(Storyboard.CreatePostSegue, sender: sender)
+    @IBAction func AddPostButton(_ sender: UIButton) {
+        performSegue(withIdentifier: Storyboard.CreatePostSegue, sender: sender)
     }
     
     // Viewcontroller lifecycle
@@ -55,28 +55,28 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
         MapView.delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Look for new posts
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        _refHandleAdded = ref.child("posts").observeEventType(.ChildAdded) { [weak weakSelf = self] (snapshot: FIRDataSnapshot) -> Void in
+        _refHandleAdded = ref.child("posts").observe(.childAdded) { [weak weakSelf = self] (snapshot: FIRDataSnapshot) -> Void in
             weakSelf?.firebasePosts.append(snapshot)
             weakSelf?.setMarkers()
         }
         // Look for removed posts
-        _refHandleRemoved = ref.child("posts").observeEventType(.ChildRemoved) { [weak weakSelf = self] (snapshot: FIRDataSnapshot) -> Void in
+        _refHandleRemoved = ref.child("posts").observe(.childRemoved) { [weak weakSelf = self] (snapshot: FIRDataSnapshot) -> Void in
             if weakSelf != nil {
                 let snapIndex = weakSelf!.indexForKey(snapshot.key)
                 if snapIndex >= 0 {
-                    weakSelf!.firebasePosts.removeAtIndex(snapIndex)
+                    weakSelf!.firebasePosts.remove(at: snapIndex)
                     weakSelf!.setMarkers(true)
                 }
             }
         }
     }
     
-    private func indexForKey(key: String) -> Int {
+    fileprivate func indexForKey(_ key: String) -> Int {
         // if the key doesn't exist
         if key == "" {
             return -1
@@ -94,7 +94,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if newPost != nil {
@@ -102,35 +102,35 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        ref.child("posts").removeObserverWithHandle(_refHandleAdded)
-        ref.child("posts").removeObserverWithHandle(_refHandleRemoved)
+        ref.child("posts").removeObserver(withHandle: _refHandleAdded)
+        ref.child("posts").removeObserver(withHandle: _refHandleRemoved)
     }
     
     // Setup
-    private func addButtonShadow(button: UIButton) {
-        button.layer.shadowColor = UIColor.blackColor().CGColor
+    fileprivate func addButtonShadow(_ button: UIButton) {
+        button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
-        button.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         button.layer.shadowRadius = 0.5
         // cache shadows for faster performance
         button.layer.shouldRasterize = true
     }
     
-    private func setLocation() {
+    fileprivate func setLocation() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.distanceFilter = 100
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
-    private func setMarkers(removing: Bool = false) {
+    fileprivate func setMarkers(_ removing: Bool = false) {
         if removing {
             MapView.clear()
         }
@@ -138,7 +138,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
         var posts = [Post]()
         if firebasePosts.count > 0 {
             for i in 0...firebasePosts.count - 1 {
-                posts.insert(Post(snapshot: firebasePosts[i]), atIndex: 0)
+                posts.insert(Post(snapshot: firebasePosts[i]), at: 0)
                 let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: posts[0].latitude!, longitude: posts[0].longitude!))
                 marker.title = posts[0].title
                 marker.userData = posts[0]
@@ -148,27 +148,27 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
     }
     
     // Prevent map from moving when you tap on a marker
-    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         MapView.selectedMarker = marker
         return true
     }
     
-    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
-        performSegueWithIdentifier(Storyboard.ShowPostSegue, sender: marker)
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        performSegue(withIdentifier: Storyboard.ShowPostSegue, sender: marker)
     }
     
     // Prepare for segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ListViewSegue:
-                if let navcon = segue.destinationViewController as? UINavigationController {
+                if let navcon = segue.destination as? UINavigationController {
                     if let vc = navcon.visibleViewController as? PostTableContainerViewController {
                         vc.userLocation = MapView.myLocation
                     }
                 }
             case Storyboard.ShowPostSegue:
-                if let vc = segue.destinationViewController as? PostViewController {
+                if let vc = segue.destination as? PostViewController {
                     if let marker = sender as? GMSMarker {
                         if let post = marker.userData as? Post {
                             vc.post = post
@@ -182,7 +182,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
     }
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ListViewSegue = "Show List"
         static let CreatePostSegue = "Create Post"
         static let MenuSegue = "Show Menu"
@@ -196,17 +196,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UIImagePickerCont
 // User location tracking
 extension MapViewController: CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
             manager.startUpdatingLocation()
             if MapView != nil {
-                MapView.myLocationEnabled = true
+                MapView.isMyLocationEnabled = true
                 MapView.settings.myLocationButton = true
             }
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             if MapView != nil {
                 MapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 14, bearing: 0, viewingAngle: 0)
@@ -215,7 +215,7 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Do something about this!
     }
 }

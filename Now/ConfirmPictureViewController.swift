@@ -17,7 +17,7 @@ class ConfirmPictureViewController: UIViewController {
     @IBOutlet weak var ImageView: UIImageView!
     
     // Viewcontroller lifecycle
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if newPostPicture != nil {
             ImageView.image = newPostPicture!
@@ -26,10 +26,10 @@ class ConfirmPictureViewController: UIViewController {
     
     
     // Prepare for segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == Storyboard.ConfirmLocationSegue {
-                if let vc = segue.destinationViewController as? ConfirmLocationViewController {
+                if let vc = segue.destination as? ConfirmLocationViewController {
                     if newPostPicture != nil {
                         vc.newPostPicture = newPostPicture!
                     }
@@ -39,7 +39,7 @@ class ConfirmPictureViewController: UIViewController {
     }
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ConfirmLocationSegue = "Confirm Location"
     }
 }

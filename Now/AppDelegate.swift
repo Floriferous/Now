@@ -23,14 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRDatabase.database().persistenceEnabled = true
     }
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Google Maps
         GMSServices.provideAPIKey("AIzaSyDNmU1rHo5R5lmOQSB36WA5BVnaWNioFeg")
         
         // Navigation bar colors
         UINavigationBar.appearance().barTintColor = GlobalColors.alizarinRed
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().tintColor = UIColor.white
         
         return true
     }
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         FIRDatabase.database().purgeOutstandingWrites()
         
         //FIRDatabase.database()

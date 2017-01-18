@@ -17,14 +17,14 @@ class ConfirmLocationViewController: UIViewController, GMSMapViewDelegate {
     var newPostPicture: UIImage?
     
     // Private properties
-    private let locationManager = CLLocationManager()
-    private let circleView = UIView()
-    private var target: CLLocationCoordinate2D?
+    fileprivate let locationManager = CLLocationManager()
+    fileprivate let circleView = UIView()
+    fileprivate var target: CLLocationCoordinate2D?
     
     // Storyboard outlets and actions
     @IBOutlet weak var MapView: GMSMapView!
-    @IBAction func ConfirmLocation(sender: UIButton) {
-        performSegueWithIdentifier(StoryBoard.AddDescriptionSegue, sender: sender)
+    @IBAction func ConfirmLocation(_ sender: UIButton) {
+        performSegue(withIdentifier: StoryBoard.AddDescriptionSegue, sender: sender)
     }
     
     // Viewcontroller lifecycle
@@ -34,41 +34,41 @@ class ConfirmLocationViewController: UIViewController, GMSMapViewDelegate {
         setLocation()
         MapView.delegate = self
         
-        circleView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.5)
+        circleView.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         MapView.addSubview(circleView)
-        MapView.bringSubviewToFront(circleView)
+        MapView.bringSubview(toFront: circleView)
         circleView.translatesAutoresizingMaskIntoConstraints = false
         
-        let heightConstraint = NSLayoutConstraint(item: circleView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50)
-        let widthConstraint = NSLayoutConstraint(item: circleView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50)
-        let centerXConstraint = NSLayoutConstraint(item: circleView, attribute: .CenterX, relatedBy: .Equal, toItem: MapView, attribute: .CenterX, multiplier: 1, constant: 0)
-        let centerYConstraint = NSLayoutConstraint(item: circleView, attribute: .CenterY, relatedBy: .Equal, toItem: MapView, attribute: .CenterY, multiplier: 1, constant: 0)
-        NSLayoutConstraint.activateConstraints([heightConstraint, widthConstraint, centerXConstraint, centerYConstraint])
+        let heightConstraint = NSLayoutConstraint(item: circleView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        let widthConstraint = NSLayoutConstraint(item: circleView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        let centerXConstraint = NSLayoutConstraint(item: circleView, attribute: .centerX, relatedBy: .equal, toItem: MapView, attribute: .centerX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: circleView, attribute: .centerY, relatedBy: .equal, toItem: MapView, attribute: .centerY, multiplier: 1, constant: 0)
+        NSLayoutConstraint.activate([heightConstraint, widthConstraint, centerXConstraint, centerYConstraint])
         
         MapView.updateConstraints()
-        UIView.animateWithDuration(1.0, animations: { [unowned self] in
+        UIView.animate(withDuration: 1.0, animations: { [unowned self] in
             self.MapView.layoutIfNeeded()
-            self.circleView.layer.cornerRadius = CGRectGetWidth(self.circleView.frame)/2
+            self.circleView.layer.cornerRadius = self.circleView.frame.width/2
             self.circleView.clipsToBounds = true
             })
     }
     
     // Setup
-    private func setLocation() {
+    fileprivate func setLocation() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
     }
     
     // General functions
-    @objc func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
+    @objc func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         target = position.target    }
     
     // Prepare for segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == StoryBoard.AddDescriptionSegue {
-                if let vc = segue.destinationViewController as? AddDescriptionViewController {
+                if let vc = segue.destination as? AddDescriptionViewController {
                     if newPostPicture != nil {
                         vc.newPostPicture = newPostPicture!
                     }
@@ -79,7 +79,7 @@ class ConfirmLocationViewController: UIViewController, GMSMapViewDelegate {
     }
     
     // Storyboard constants
-    private struct StoryBoard {
+    fileprivate struct StoryBoard {
         static let AddDescriptionSegue = "Add Description"
     }
 }
@@ -87,22 +87,22 @@ class ConfirmLocationViewController: UIViewController, GMSMapViewDelegate {
 // User location tracking
 extension ConfirmLocationViewController: CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
             manager.startUpdatingLocation()
-            MapView.myLocationEnabled = true
+            MapView.isMyLocationEnabled = true
             MapView.settings.myLocationButton = true
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             MapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 14, bearing: 0, viewingAngle: 0)
             manager.stopUpdatingLocation()
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Do something about this!
     }
 }

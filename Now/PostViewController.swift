@@ -22,10 +22,10 @@ class PostViewController: UIViewController {
     var upCount = 0
     
     // Private properties
-    private var ref: FIRDatabaseReference!
-    private var storageRef: FIRStorageReference!
-    private var _refHandleChanged: FIRDatabaseHandle!
-    private let locationManager = CLLocationManager()
+    fileprivate var ref: FIRDatabaseReference!
+    fileprivate var storageRef: FIRStorageReference!
+    fileprivate var _refHandleChanged: FIRDatabaseHandle!
+    fileprivate let locationManager = CLLocationManager()
     
     // Storyboard outlets and actions
     @IBOutlet weak var ScrollView: UIScrollView!
@@ -40,10 +40,10 @@ class PostViewController: UIViewController {
     @IBOutlet weak var DirectionsOutlet: UIButton!
     @IBOutlet weak var UserDateButtonOutlet: UIButton!
     @IBOutlet weak var DistanceLabel: UILabel!
-    @IBAction func DirectionsButton(sender: UIButton) {
+    @IBAction func DirectionsButton(_ sender: UIButton) {
         if post != nil {
-            if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
-                UIApplication.sharedApplication().openURL(NSURL(string:
+            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+                UIApplication.shared.openURL(URL(string:
                     "comgooglemaps://?saddr=&daddr=\(post!.latitude!),\(post!.longitude!)&directionsmode=driving")!)
                 
             } else {
@@ -54,32 +54,32 @@ class PostViewController: UIViewController {
         }
     }
     
-    @IBAction func UserDateButton(sender: UIButton) {
+    @IBAction func UserDateButton(_ sender: UIButton) {
         // Verify if user is logged in
         if let _ = FIRAuth.auth()?.currentUser {
-            performSegueWithIdentifier(Storyboard.ShowUserSegue, sender: self)
+            performSegue(withIdentifier: Storyboard.ShowUserSegue, sender: self)
         } else {
-            performSegueWithIdentifier(Storyboard.LoginSegue, sender: self)
+            performSegue(withIdentifier: Storyboard.LoginSegue, sender: self)
             return
         }
     }
     
-    @IBAction func UpCountButton(sender: UIButton) {
+    @IBAction func UpCountButton(_ sender: UIButton) {
         // Verify if user is logged in
         if let _ = FIRAuth.auth()?.currentUser {
-            performSegueWithIdentifier(Storyboard.ShowUsersSegue, sender: self)
+            performSegue(withIdentifier: Storyboard.ShowUsersSegue, sender: self)
         } else {
-            performSegueWithIdentifier(Storyboard.LoginSegue, sender: self)
+            performSegue(withIdentifier: Storyboard.LoginSegue, sender: self)
             return
         }
     }
     
-    @IBAction func UpButton(sender: UIButton) {
+    @IBAction func UpButton(_ sender: UIButton) {
         if let _ = FIRAuth.auth()?.currentUser {
             // up or downvote post
             getCurrentUserFromFirebase() { [weak weakSelf = self] in weakSelf?.checkIfUserLiked(true) }
         } else {
-            performSegueWithIdentifier(Storyboard.LoginSegue, sender: self)
+            performSegue(withIdentifier: Storyboard.LoginSegue, sender: self)
             return
         }
     }
@@ -98,14 +98,14 @@ class PostViewController: UIViewController {
         // Observe ups, and increase/decrease the count every time the function is called
         if post != nil {
             // observe changes
-            _refHandleChanged = ref.child("posts").child(post!.id!).observeEventType(.ChildChanged) { [weak weakSelf = self] (idSnapshot: FIRDataSnapshot) -> Void in
+            _refHandleChanged = ref.child("posts").child(post!.id!).observe(.childChanged) { [weak weakSelf = self] (idSnapshot: FIRDataSnapshot) -> Void in
                 // - 1 to avoid counting the initial upvote
-                weakSelf?.UpCountOutlet.setTitle("+" + String(idSnapshot.childrenCount - 1), forState: .Normal)
+                weakSelf?.UpCountOutlet.setTitle("+" + String(idSnapshot.childrenCount - 1), for: UIControlState())
             }
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setLikeCount()
         
@@ -118,33 +118,33 @@ class PostViewController: UIViewController {
     
     deinit {
         if post != nil {
-            ref.child("posts").child(post!.id!).removeObserverWithHandle(_refHandleChanged)
+            ref.child("posts").child(post!.id!).removeObserver(withHandle: _refHandleChanged)
         }
     }
     
     // Setup
-    private func setLocation() {
+    fileprivate func setLocation() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
     }
     
-    private func setOutlets() {
+    fileprivate func setOutlets() {
         if post != nil {
             PostTitle.text = post!.title
             PostDescription.text = post!.description
-            UpCountOutlet.setTitle(String("+" + String(post!.upCount! - 1)), forState: .Normal)
+            UpCountOutlet.setTitle(String("+" + String(post!.upCount! - 1)), for: UIControlState())
             DirectionsOutlet.layer.cornerRadius = UpCountOutlet.frame.height / 4
             setUpButton()
             setImage()
             if userLocation != nil {
                 let postLocation = CLLocation(latitude: post!.latitude!, longitude: post!.longitude!)
-                if postLocation.distanceFromLocation(userLocation!) < 1000 {
-                    DistanceLabel.text = String(Int(round(postLocation.distanceFromLocation(userLocation!) / 10) * 10)) + "m away"
-                } else if postLocation.distanceFromLocation(userLocation!) < 100000 {
-                    DistanceLabel.text = String((round(postLocation.distanceFromLocation(userLocation!) / 100) * 100) / 1000) + "km away"
+                if postLocation.distance(from: userLocation!) < 1000 {
+                    DistanceLabel.text = String(Int(round(postLocation.distance(from: userLocation!) / 10) * 10)) + "m away"
+                } else if postLocation.distance(from: userLocation!) < 100000 {
+                    DistanceLabel.text = String((round(postLocation.distance(from: userLocation!) / 100) * 100) / 1000) + "km away"
                 } else {
-                    DistanceLabel.text = String(Int((round(postLocation.distanceFromLocation(userLocation!) / 1000) * 1000) / 1000)) + "km away"
+                    DistanceLabel.text = String(Int((round(postLocation.distance(from: userLocation!) / 1000) * 1000) / 1000)) + "km away"
                 }
             } else {
                 DistanceLabel.text = ""
@@ -159,24 +159,24 @@ class PostViewController: UIViewController {
                         numericDates: true)
                         + " by " + weakSelf!.user!.username!
                     
-                    weakSelf!.UserDateButtonOutlet.setTitle(title, forState: .Normal)
+                    weakSelf!.UserDateButtonOutlet.setTitle(title, for: UIControlState())
                 }
             }
             
             addPostMarker()
         } else {
-            let alertcontroller = UIAlertController(title: "Oops", message: "This is not the post you're looking for!", preferredStyle: .Alert)
-            let defaultAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            let alertcontroller = UIAlertController(title: "Oops", message: "This is not the post you're looking for!", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             
             alertcontroller.addAction(defaultAction)
-            self.presentViewController(alertcontroller, animated: true, completion: nil)
+            self.present(alertcontroller, animated: true, completion: nil)
         }
     }
     
-    private func setImage() {
+    fileprivate func setImage() {
         ActivityIndicator.startAnimating()
         // Download the large image
-        storageRef.child("posts").child(post!.id! + "_large.jpg").dataWithMaxSize(INT64_MAX) { [weak weakSelf = self] (data, error) in
+        storageRef.child("posts").child(post!.id! + "_large.jpg").data(withMaxSize: INT64_MAX) { [weak weakSelf = self] (data, error) in
             if let error = error {
                 print("Error downloading: \(error)")
                 return
@@ -188,14 +188,14 @@ class PostViewController: UIViewController {
         }
     }
     
-    private func setUpButton() {
+    fileprivate func setUpButton() {
         UpButtonOutlet.layer.cornerRadius = UpCountOutlet.frame.height / 3
         
-        let color = CGColorGetComponents(GlobalColors.alizarinRed.CGColor)
+        let color = GlobalColors.alizarinRed.cgColor.components
         let tint_factor = CGFloat(0.15)
-        let newR = color[0] + (1 - color[0]) * tint_factor / 255
-        let newG = color[1] + (1 - color[1]) * tint_factor / 255
-        let newB = color[2] + (1 - color[2]) * tint_factor / 255
+        let newR = (color?[0])! + (1 - (color?[0])!) * tint_factor / 255
+        let newG = (color?[1])! + (1 - (color?[1])!) * tint_factor / 255
+        let newB = (color?[2])! + (1 - (color?[2])!) * tint_factor / 255
         
         UpButtonOutlet.backgroundColor = UIColor(red: newR, green: newG, blue: newB, alpha: 1.0)
         
@@ -205,19 +205,19 @@ class PostViewController: UIViewController {
         }
     }
     
-    private func setLikeCount() {
+    fileprivate func setLikeCount() {
         UpCountOutlet.layer.cornerRadius = UpCountOutlet.frame.height / 3
         
-        let color = CGColorGetComponents(GlobalColors.alizarinRed.CGColor)
+        let color = GlobalColors.alizarinRed.cgColor.components
         let tint_factor = CGFloat(0.15)
-        let newR = color[0] + (1 - color[0]) * tint_factor / 255
-        let newG = color[1] + (1 - color[1]) * tint_factor / 255
-        let newB = color[2] + (1 - color[2]) * tint_factor / 255
+        let newR = (color?[0])! + (1 - (color?[0])!) * tint_factor / 255
+        let newG = (color?[1])! + (1 - (color?[1])!) * tint_factor / 255
+        let newB = (color?[2])! + (1 - (color?[2])!) * tint_factor / 255
         
         UpCountOutlet.backgroundColor = UIColor(red: newR, green: newG, blue: newB, alpha: 1.0)
     }
     
-    private func addPostMarker() {
+    fileprivate func addPostMarker() {
         if post != nil {
             let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: post!.latitude!, longitude: post!.longitude!))
             marker.map = MapView
@@ -225,10 +225,10 @@ class PostViewController: UIViewController {
     }
     
     // General functions
-    private func checkIfUserLiked(buttonPressed: Bool) {
+    fileprivate func checkIfUserLiked(_ buttonPressed: Bool) {
         if post != nil {
             if currentUser != nil {
-                ref.child("posts/\(post!.id!)/ups").child(currentUser!.id!).observeSingleEventOfType(.Value) { [weak weakSelf = self] (snapshot: FIRDataSnapshot) -> Void in
+                ref.child("posts/\(post!.id!)/ups").child(currentUser!.id!).observeSingleEvent(of: .value) { [weak weakSelf = self] (snapshot: FIRDataSnapshot) -> Void in
                     if snapshot.value is NSNull && weakSelf != nil {
                         // no up from this user yet, add one
                         if buttonPressed {
@@ -263,18 +263,18 @@ class PostViewController: UIViewController {
         }
     }
     
-    private func getPostUser(withClosure closure: () -> Void) {
+    fileprivate func getPostUser(withClosure closure: @escaping () -> Void) {
         if post != nil {
-            ref.child("users").child(post!.userId!).observeSingleEventOfType(.Value) { (userSnapshot: FIRDataSnapshot) -> Void in
+            ref.child("users").child(post!.userId!).observeSingleEvent(of: .value) { (userSnapshot: FIRDataSnapshot) -> Void in
                 self.user = User(snapshot: userSnapshot)
                 closure()
             }
         }
     }
     
-    private func getCurrentUserFromFirebase(withClosure closure : () -> Void) {
+    fileprivate func getCurrentUserFromFirebase(withClosure closure : @escaping () -> Void) {
         if let currentAuthUser = FIRAuth.auth()?.currentUser {
-            ref.child("users").child(currentAuthUser.uid).observeSingleEventOfType(.Value) { (userSnapshot: FIRDataSnapshot) -> Void in
+            ref.child("users").child(currentAuthUser.uid).observeSingleEvent(of: .value) { (userSnapshot: FIRDataSnapshot) -> Void in
                 let newCurrentUser = User(snapshot: userSnapshot)
                 self.currentUser = newCurrentUser
                 closure()
@@ -283,32 +283,32 @@ class PostViewController: UIViewController {
     }
     
     // The unwind button and its unwind action
-    private func addUnwindButton() {
+    fileprivate func addUnwindButton() {
         // Disable unwind button if this VC is early in the stack
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.rightBarButtonItem = nil
         } else {
-            let unwindButton = UIBarButtonItem(title: "", style: .Plain, target: self, action: #selector(unwind(_:)))
-            unwindButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], forState: .Normal)
+            let unwindButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(unwind(_:)))
+            unwindButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], for: .Normal)
             unwindButton.title = String.fontAwesomeIconWithName(.Times)
             self.navigationItem.rightBarButtonItem = unwindButton
         }
     }
-    @objc private func unwind(sender: AnyObject?) {
-        performSegueWithIdentifier(Storyboard.UnwindSegue, sender: nil)
+    @objc fileprivate func unwind(_ sender: AnyObject?) {
+        performSegue(withIdentifier: Storyboard.UnwindSegue, sender: nil)
     }
     
     // Prepare for Segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ShowUsersSegue:
-                if let vc = segue.destinationViewController as? UserTableViewController {
+                if let vc = segue.destination as? UserTableViewController {
                     vc.navigationItem.title = "Ups"
                     vc.postId = post!.id
                 }
             case Storyboard.ShowUserSegue:
-                if let vc = segue.destinationViewController as? UserViewController {
+                if let vc = segue.destination as? UserViewController {
                     vc.user = user
                 }
             default: break
@@ -317,7 +317,7 @@ class PostViewController: UIViewController {
     }
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ShowUsersSegue = "Show Users"
         static let ShowUserSegue = "Show User"
         static let LoginSegue = "Log In"
@@ -331,20 +331,20 @@ class PostViewController: UIViewController {
 // User location tracking
 extension PostViewController: CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
             manager.startUpdatingLocation()
-            MapView.myLocationEnabled = true
+            MapView.isMyLocationEnabled = true
             MapView.settings.myLocationButton = true
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if post != nil {
             let postLocation = CLLocationCoordinate2D(latitude: post!.latitude!, longitude: post!.longitude!)
             if let userLocation = locations.first {
                 let bounds = GMSCoordinateBounds.init(coordinate: userLocation.coordinate, coordinate: postLocation)
-                MapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds, withPadding: 50.0))
+                MapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
                 manager.stopUpdatingLocation()
             } else {
                 MapView.camera = GMSCameraPosition(target: postLocation, zoom: 14, bearing: 0, viewingAngle: 0)
@@ -352,7 +352,7 @@ extension PostViewController: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Do something about this!
     }
 }

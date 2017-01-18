@@ -13,7 +13,7 @@ class FusumaCameraViewController: UIViewController, FusumaDelegate {
     
     var newPostPicture: UIImage?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController!.setNavigationBarHidden(true, animated: false)
         
@@ -25,7 +25,7 @@ class FusumaCameraViewController: UIViewController, FusumaDelegate {
         presentViewController(fusuma, animated: true, completion: nil)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController!.setNavigationBarHidden(false, animated: animated)
 
@@ -33,16 +33,16 @@ class FusumaCameraViewController: UIViewController, FusumaDelegate {
     
     // Fusuma Camera functions
     // Return the image which is selected from camera roll or is taken via the camera.
-    func fusumaImageSelected(image: UIImage) {
+    func fusumaImageSelected(_ image: UIImage) {
         newPostPicture = image
-        performSegueWithIdentifier(Storyboard.ConfirmLocationSegue, sender: nil)
+        performSegue(withIdentifier: Storyboard.ConfirmLocationSegue, sender: nil)
     }
     
     // Return the image but called after is dismissed.
-    func fusumaDismissedWithImage(image: UIImage) {
+    func fusumaDismissedWithImage(_ image: UIImage) {
     }
     
-    func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
         print("Called just after a video has been selected.")
     }
     
@@ -51,10 +51,10 @@ class FusumaCameraViewController: UIViewController, FusumaDelegate {
         print("Camera roll unauthorized")
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == Storyboard.ConfirmLocationSegue {
-                if let vc = segue.destinationViewController as? ConfirmLocationViewController {
+                if let vc = segue.destination as? ConfirmLocationViewController {
                     if newPostPicture != nil {
                         vc.newPostPicture = newPostPicture!
                     }
@@ -65,7 +65,7 @@ class FusumaCameraViewController: UIViewController, FusumaDelegate {
     
     
     // Storyboard constants
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let ConfirmLocationSegue = "Confirm Location"
     }
 }
