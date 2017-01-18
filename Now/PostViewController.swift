@@ -289,8 +289,8 @@ class PostViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = nil
         } else {
             let unwindButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(unwind(_:)))
-            unwindButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], for: .Normal)
-            unwindButton.title = String.fontAwesomeIconWithName(.Times)
+            unwindButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30)], for: .normal)
+            unwindButton.title = String.fontAwesomeIcon(name: .times)
             self.navigationItem.rightBarButtonItem = unwindButton
         }
     }

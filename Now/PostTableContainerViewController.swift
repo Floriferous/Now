@@ -31,13 +31,13 @@ class PostTableContainerViewController: UIViewController {
     
     // Setup
     func setupButtons() {
-        MenuBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], for: .Normal)
-        MenuBarButton.title = String.fontAwesomeIconWithName(.Bars)
+        MenuBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30)], for: .normal)
+        MenuBarButton.title = String.fontAwesomeIcon(name: .bars)
         
-        AddPostButtonOutlet.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(30)], for: .Normal)
-        AddPostButtonOutlet.title = String.fontAwesomeIconWithName(.Plus)
+        AddPostButtonOutlet.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30)], for: .normal)
+        AddPostButtonOutlet.title = String.fontAwesomeIcon(name: .plus)
         
-        MapViewButton.setTitle(String.fontAwesomeIconWithName(.Globe), for: .Normal)
+        MapViewButton.setTitle(String.fontAwesomeIcon(name: .globe), for: .normal)
         MapViewButton.layer.cornerRadius = 20.0
         MapViewButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
     }

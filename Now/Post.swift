@@ -23,13 +23,13 @@ class Post {
     // Load data from snapshot into Post
     init(snapshot: FIRDataSnapshot!) {
         id = String(snapshot.key)
-        title = snapshot.value![PostFields.title] as? String
-        description = snapshot.value![PostFields.description] as? String
+        title = (snapshot.value as? NSDictionary)![PostFields.title] as? String
+        description = (snapshot.value as? NSDictionary)![PostFields.description] as? String
         upCount = Int(snapshot.childSnapshot(forPath: PostFields.ups).childrenCount)
-        latitude = snapshot.value![PostFields.latitude] as? Double
-        longitude = snapshot.value![PostFields.longitude] as? Double
-        userId = snapshot.value![PostFields.userId] as? String
-        if let time = snapshot.value![PostFields.date] as? Double {
+        latitude = (snapshot.value as? NSDictionary)![PostFields.latitude] as? Double
+        longitude = (snapshot.value as? NSDictionary)![PostFields.longitude] as? Double
+        userId = (snapshot.value as? NSDictionary)![PostFields.userId] as? String
+        if let time = (snapshot.value as? NSDictionary)![PostFields.date] as? Double {
             creationTime = Date(timeIntervalSince1970: time/1000)
         }
     }

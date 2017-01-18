@@ -22,9 +22,9 @@ class PostTableViewCell: UITableViewCell
     var userLocation: CLLocation?
     var postImage: UIImage? {
         didSet {
-            if post != nil && postImage != Data() && postImage != nil {
+            if post != nil && (postImage != Data()) && postImage != nil {
                 PostImageView.image = postImage!
-            }
+            },
         }
     }
     

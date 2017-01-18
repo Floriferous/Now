@@ -31,14 +31,14 @@ class User {
         
         
         id = String(snapshot.key)
-        username = snapshot.value![UserFields.username] as? String
-        email = snapshot.value![UserFields.email] as? String
+        username = (snapshot.value as? NSDictionary)![UserFields.username] as? String
+        email = (snapshot.value as? NSDictionary)![UserFields.email] as? String
         followerCount = Int(snapshot.childSnapshot(forPath: UserFields.followers).childrenCount)
         followingCount = Int(snapshot.childSnapshot(forPath: UserFields.following).childrenCount)
         upCount = Int(snapshot.childSnapshot(forPath: UserFields.ups).childrenCount)
         postCount = Int(snapshot.childSnapshot(forPath: UserFields.posts).childrenCount)
         
-        if let time = snapshot.value![UserFields.date] as? Double {
+        if let time = (snapshot.value as? NSDictionary)![UserFields.date] as? Double {
             creationTime = Date(timeIntervalSince1970: time/1000)
         }
     }
