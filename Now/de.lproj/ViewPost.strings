@@ -1,0 +1,51 @@
+
+/* Class = "UILabel"; text = "Post Distance"; ObjectID = "3Re-ec-jnc"; */
+"3Re-ec-jnc.text" = "Post Distance";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "8DM-k7-VLd"; */
+"8DM-k7-VLd.text" = "Description";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "DXt-jF-L7m"; */
+"DXt-jF-L7m.text" = "Distance";
+
+/* Class = "UILabel"; text = "You shouldn't see this!"; ObjectID = "Ggo-G8-WLP"; */
+"Ggo-G8-WLP.text" = "You shouldn't see this!";
+
+/* Class = "UILabel"; text = "LikeCount"; ObjectID = "Hrd-an-qq0"; */
+"Hrd-an-qq0.text" = "LikeCount";
+
+/* Class = "UIButton"; normalTitle = "Up"; ObjectID = "IqP-Ch-Q1i"; */
+"IqP-Ch-Q1i.normalTitle" = "Up";
+
+/* Class = "UIButton"; normalTitle = "+0"; ObjectID = "Twi-rS-uQC"; */
+"Twi-rS-uQC.normalTitle" = "+0";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "bDa-Uy-w57"; */
+"bDa-Uy-w57.text" = "Username";
+
+/* Class = "UIButton"; normalTitle = "Following"; ObjectID = "blQ-9Q-AUT"; */
+"blQ-9Q-AUT.normalTitle" = "Following";
+
+/* Class = "UILabel"; text = "Post Title"; ObjectID = "btC-8H-rYt"; */
+"btC-8H-rYt.text" = "Post Title";
+
+/* Class = "UIButton"; normalTitle = "Postcount"; ObjectID = "chN-Mk-cHD"; */
+"chN-Mk-cHD.normalTitle" = "Postcount";
+
+/* Class = "UIButton"; normalTitle = "Directions"; ObjectID = "cwL-mc-1Ox"; */
+"cwL-mc-1Ox.normalTitle" = "Directions";
+
+/* Class = "UIButton"; normalTitle = "Created by X and date"; ObjectID = "ifO-Ys-xNO"; */
+"ifO-Ys-xNO.normalTitle" = "Created by X and date";
+
+/* Class = "UILabel"; text = "Followercount"; ObjectID = "kGm-Dg-g6P"; */
+"kGm-Dg-g6P.text" = "Followercount";
+
+/* Class = "UILabel"; text = "Post Creation and User"; ObjectID = "nhi-Mp-2iH"; */
+"nhi-Mp-2iH.text" = "Post Creation and User";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "uWi-7r-C9e"; */
+"uWi-7r-C9e.text" = "Username";
+
+/* Class = "UILabel"; text = "FollowerCount"; ObjectID = "wjd-do-FWy"; */
+"wjd-do-FWy.text" = "FollowerCount";

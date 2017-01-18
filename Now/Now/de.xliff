@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Now/Base.lproj/CreatePost.storyboard" source-language="en" datatype="plaintext" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="3Xn-iH-3Sf.text">
+        <source>0/60</source>
+        <target>0/60</target>
+        <note>Class = "UILabel"; text = "0/60"; ObjectID = "3Xn-iH-3Sf";</note>
+      </trans-unit>
+      <trans-unit id="5b7-Bq-vQg.normalTitle">
+        <source>Confirm Location</source>
+        <target>Confirm Location</target>
+        <note>Class = "UIButton"; normalTitle = "Confirm Location"; ObjectID = "5b7-Bq-vQg";</note>
+      </trans-unit>
+      <trans-unit id="B5T-8m-2Ez.normalTitle">
+        <source>Take Picture</source>
+        <target>Take Picture</target>
+        <note>Class = "UIButton"; normalTitle = "Take Picture"; ObjectID = "B5T-8m-2Ez";</note>
+      </trans-unit>
+      <trans-unit id="BOp-y7-qaL.text">
+        <source>Add a Description (optional)</source>
+        <target>Add a Description (optional)</target>
+        <note>Class = "UILabel"; text = "Add a Description (optional)"; ObjectID = "BOp-y7-qaL";</note>
+      </trans-unit>
+      <trans-unit id="EyY-Qs-PFW.text">
+        <source>0/200</source>
+        <target>0/200</target>
+        <note>Class = "UILabel"; text = "0/200"; ObjectID = "EyY-Qs-PFW";</note>
+      </trans-unit>
+      <trans-unit id="csb-ze-Wr2.normalTitle">
+        <source>Confirm Picture</source>
+        <target>Confirm Picture</target>
+        <note>Class = "UIButton"; normalTitle = "Confirm Picture"; ObjectID = "csb-ze-Wr2";</note>
+      </trans-unit>
+      <trans-unit id="glo-wA-fvS.normalTitle">
+        <source>Create Post</source>
+        <target>Create Post</target>
+        <note>Class = "UIButton"; normalTitle = "Create Post"; ObjectID = "glo-wA-fvS";</note>
+      </trans-unit>
+      <trans-unit id="oac-sE-2OE.text">
+        <source>Give it a Title</source>
+        <target>Give it a Title</target>
+        <note>Class = "UILabel"; text = "Give it a Title"; ObjectID = "oac-sE-2OE";</note>
+      </trans-unit>
+      <trans-unit id="sLe-34-CH5.title">
+        <source>Camera View Controller</source>
+        <target>Camera View Controller</target>
+        <note>Class = "UIViewController"; title = "Camera View Controller"; ObjectID = "sLe-34-CH5";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Now/Base.lproj/Login.storyboard" source-language="en" datatype="plaintext" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="1hA-SO-NTF.placeholder">
+        <source>Username</source>
+        <target>Username</target>
+        <note>Class = "UITextField"; placeholder = "Username"; ObjectID = "1hA-SO-NTF";</note>
+      </trans-unit>
+      <trans-unit id="Hjf-3U-EIJ.normalTitle">
+        <source>Log In</source>
+        <target>Log In</target>
+        <note>Class = "UIButton"; normalTitle = "Log In"; ObjectID = "Hjf-3U-EIJ";</note>
+      </trans-unit>
+      <trans-unit id="VDz-WO-YiL.normalTitle">
+        <source>Cancel</source>
+        <target>Cancel</target>
+        <note>Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "VDz-WO-YiL";</note>
+      </trans-unit>
+      <trans-unit id="lF2-Jj-714.placeholder">
+        <source>Email</source>
+        <target>Email</target>
+        <note>Class = "UITextField"; placeholder = "Email"; ObjectID = "lF2-Jj-714";</note>
+      </trans-unit>
+      <trans-unit id="nPA-lx-Jz4.placeholder">
+        <source>Password</source>
+        <target>Password</target>
+        <note>Class = "UITextField"; placeholder = "Password"; ObjectID = "nPA-lx-Jz4";</note>
+      </trans-unit>
+      <trans-unit id="ucZ-am-VKH.normalTitle">
+        <source>Create Account</source>
+        <target>Create Account</target>
+        <note>Class = "UIButton"; normalTitle = "Create Account"; ObjectID = "ucZ-am-VKH";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Now/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="0iJ-mk-PzG.normalTitle">
+        <source>_menu</source>
+        <target>_menu</target>
+        <note>Class = "UIButton"; normalTitle = "_menu"; ObjectID = "0iJ-mk-PzG";</note>
+      </trans-unit>
+      <trans-unit id="8yN-vT-Qlp.text">
+        <source>About Now</source>
+        <target>About Now</target>
+        <note>Class = "UILabel"; text = "About Now"; ObjectID = "8yN-vT-Qlp";</note>
+      </trans-unit>
+      <trans-unit id="63A-ph-2nR.text">
+        <source>Post Title</source>
+        <target>Post Title</target>
+        <note>Class = "UILabel"; text = "Post Title"; ObjectID = "63A-ph-2nR";</note>
+      </trans-unit>
+      <trans-unit id="304-Pp-JPF.text">
+        <source>Detail</source>
+        <target>Detail</target>
+        <note>Class = "UILabel"; text = "Detail"; ObjectID = "304-Pp-JPF";</note>
+      </trans-unit>
+      <trans-unit id="A6N-Cx-Lsb.normalTitle">
+        <source>_map</source>
+        <target>_map</target>
+        <note>Class = "UIButton"; normalTitle = "_map"; ObjectID = "A6N-Cx-Lsb";</note>
+      </trans-unit>
+      <trans-unit id="Db1-zf-3fz.text">
+        <source>Post Distance</source>
+        <target>Post Distance</target>
+        <note>Class = "UILabel"; text = "Post Distance"; ObjectID = "Db1-zf-3fz";</note>
+      </trans-unit>
+      <trans-unit id="DpJ-8l-dD9.text">
+        <source>Detail</source>
+        <target>Detail</target>
+        <note>Class = "UILabel"; text = "Detail"; ObjectID = "DpJ-8l-dD9";</note>
+      </trans-unit>
+      <trans-unit id="I7t-4L-de5.text">
+        <source>Post Creation and User</source>
+        <target>Post Creation and User</target>
+        <note>Class = "UILabel"; text = "Post Creation and User"; ObjectID = "I7t-4L-de5";</note>
+      </trans-unit>
+      <trans-unit id="KEq-Mk-psn.text">
+        <source>My Profile</source>
+        <target>My Profile</target>
+        <note>Class = "UILabel"; text = "My Profile"; ObjectID = "KEq-Mk-psn";</note>
+      </trans-unit>
+      <trans-unit id="L6C-mi-Fbz.title">
+        <source>_camera</source>
+        <target>_camera</target>
+        <note>Class = "UIBarButtonItem"; title = "_camera"; ObjectID = "L6C-mi-Fbz";</note>
+      </trans-unit>
+      <trans-unit id="NKn-G5-D3a.title">
+        <source>_menu</source>
+        <target>_menu</target>
+        <note>Class = "UIBarButtonItem"; title = "_menu"; ObjectID = "NKn-G5-D3a";</note>
+      </trans-unit>
+      <trans-unit id="QGG-tR-KeP.title">
+        <source>Menu Table View Controller</source>
+        <target>Menu Table View Controller</target>
+        <note>Class = "UITableViewController"; title = "Menu Table View Controller"; ObjectID = "QGG-tR-KeP";</note>
+      </trans-unit>
+      <trans-unit id="VT1-EG-rPe.text">
+        <source>LikeCount</source>
+        <target>LikeCount</target>
+        <note>Class = "UILabel"; text = "LikeCount"; ObjectID = "VT1-EG-rPe";</note>
+      </trans-unit>
+      <trans-unit id="Z1o-bP-f4F.text">
+        <source>Post Title</source>
+        <target>Post Title</target>
+        <note>Class = "UILabel"; text = "Post Title"; ObjectID = "Z1o-bP-f4F";</note>
+      </trans-unit>
+      <trans-unit id="Z7s-58-uO2.text">
+        <source>Post Creation and User</source>
+        <target>Post Creation and User</target>
+        <note>Class = "UILabel"; text = "Post Creation and User"; ObjectID = "Z7s-58-uO2";</note>
+      </trans-unit>
+      <trans-unit id="bAz-dQ-bf5.text">
+        <source>Upped Posts</source>
+        <target>Upped Posts</target>
+        <note>Class = "UILabel"; text = "Upped Posts"; ObjectID = "bAz-dQ-bf5";</note>
+      </trans-unit>
+      <trans-unit id="ceW-Cm-mAn.text">
+        <source>Post Title</source>
+        <target>Post Title</target>
+        <note>Class = "UILabel"; text = "Post Title"; ObjectID = "ceW-Cm-mAn";</note>
+      </trans-unit>
+      <trans-unit id="cpt-Lc-SBb.normalTitle">
+        <source>_camera</source>
+        <target>_camera</target>
+        <note>Class = "UIButton"; normalTitle = "_camera"; ObjectID = "cpt-Lc-SBb";</note>
+      </trans-unit>
+      <trans-unit id="eoC-VN-bNY.text">
+        <source>LikeCount</source>
+        <target>LikeCount</target>
+        <note>Class = "UILabel"; text = "LikeCount"; ObjectID = "eoC-VN-bNY";</note>
+      </trans-unit>
+      <trans-unit id="jhV-Cz-O0f.text">
+        <source>Post Distance</source>
+        <target>Post Distance</target>
+        <note>Class = "UILabel"; text = "Post Distance"; ObjectID = "jhV-Cz-O0f";</note>
+      </trans-unit>
+      <trans-unit id="lfT-uY-rPh.text">
+        <source>Post Distance</source>
+        <target>Post Distance</target>
+        <note>Class = "UILabel"; text = "Post Distance"; ObjectID = "lfT-uY-rPh";</note>
+      </trans-unit>
+      <trans-unit id="mGX-7z-1Lx.text">
+        <source>Detail</source>
+        <target>Detail</target>
+        <note>Class = "UILabel"; text = "Detail"; ObjectID = "mGX-7z-1Lx";</note>
+      </trans-unit>
+      <trans-unit id="oKw-n0-94M.text">
+        <source>Post Creation and User</source>
+        <target>Post Creation and User</target>
+        <note>Class = "UILabel"; text = "Post Creation and User"; ObjectID = "oKw-n0-94M";</note>
+      </trans-unit>
+      <trans-unit id="rIN-XW-vFg.text">
+        <source>Hello</source>
+        <note>Class = "UILabel"; text = "Hello"; ObjectID = "rIN-XW-vFg";</note>
+      </trans-unit>
+      <trans-unit id="sH7-Lk-TTS.text">
+        <source>My Posts</source>
+        <target>My Posts</target>
+        <note>Class = "UILabel"; text = "My Posts"; ObjectID = "sH7-Lk-TTS";</note>
+      </trans-unit>
+      <trans-unit id="wx0-ki-YT2.text">
+        <source>Sign Out</source>
+        <target>Sign Out</target>
+        <note>Class = "UILabel"; text = "Sign Out"; ObjectID = "wx0-ki-YT2";</note>
+      </trans-unit>
+      <trans-unit id="z0R-iM-tN9.text">
+        <source>LikeCount</source>
+        <target>LikeCount</target>
+        <note>Class = "UILabel"; text = "LikeCount"; ObjectID = "z0R-iM-tN9";</note>
+      </trans-unit>
+      <trans-unit id="zi9-og-1pj.normalTitle">
+        <source>_list</source>
+        <target>_list</target>
+        <note>Class = "UIButton"; normalTitle = "_list"; ObjectID = "zi9-og-1pj";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Now/Base.lproj/ViewPost.storyboard" source-language="en" datatype="plaintext" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="3Re-ec-jnc.text">
+        <source>Post Distance</source>
+        <target>Post Distance</target>
+        <note>Class = "UILabel"; text = "Post Distance"; ObjectID = "3Re-ec-jnc";</note>
+      </trans-unit>
+      <trans-unit id="8DM-k7-VLd.text">
+        <source>Description</source>
+        <target>Description</target>
+        <note>Class = "UILabel"; text = "Description"; ObjectID = "8DM-k7-VLd";</note>
+      </trans-unit>
+      <trans-unit id="DXt-jF-L7m.text">
+        <source>Distance</source>
+        <target>Distance</target>
+        <note>Class = "UILabel"; text = "Distance"; ObjectID = "DXt-jF-L7m";</note>
+      </trans-unit>
+      <trans-unit id="Ggo-G8-WLP.text">
+        <source>You shouldn't see this!</source>
+        <target>You shouldn't see this!</target>
+        <note>Class = "UILabel"; text = "You shouldn't see this!"; ObjectID = "Ggo-G8-WLP";</note>
+      </trans-unit>
+      <trans-unit id="Hrd-an-qq0.text">
+        <source>LikeCount</source>
+        <target>LikeCount</target>
+        <note>Class = "UILabel"; text = "LikeCount"; ObjectID = "Hrd-an-qq0";</note>
+      </trans-unit>
+      <trans-unit id="IqP-Ch-Q1i.normalTitle">
+        <source>Up</source>
+        <target>Up</target>
+        <note>Class = "UIButton"; normalTitle = "Up"; ObjectID = "IqP-Ch-Q1i";</note>
+      </trans-unit>
+      <trans-unit id="Twi-rS-uQC.normalTitle">
+        <source>+0</source>
+        <target>+0</target>
+        <note>Class = "UIButton"; normalTitle = "+0"; ObjectID = "Twi-rS-uQC";</note>
+      </trans-unit>
+      <trans-unit id="bDa-Uy-w57.text">
+        <source>Username</source>
+        <target>Username</target>
+        <note>Class = "UILabel"; text = "Username"; ObjectID = "bDa-Uy-w57";</note>
+      </trans-unit>
+      <trans-unit id="blQ-9Q-AUT.normalTitle">
+        <source>Following</source>
+        <target>Following</target>
+        <note>Class = "UIButton"; normalTitle = "Following"; ObjectID = "blQ-9Q-AUT";</note>
+      </trans-unit>
+      <trans-unit id="btC-8H-rYt.text">
+        <source>Post Title</source>
+        <target>Post Title</target>
+        <note>Class = "UILabel"; text = "Post Title"; ObjectID = "btC-8H-rYt";</note>
+      </trans-unit>
+      <trans-unit id="chN-Mk-cHD.normalTitle">
+        <source>Postcount</source>
+        <target>Postcount</target>
+        <note>Class = "UIButton"; normalTitle = "Postcount"; ObjectID = "chN-Mk-cHD";</note>
+      </trans-unit>
+      <trans-unit id="cwL-mc-1Ox.normalTitle">
+        <source>Directions</source>
+        <target>Directions</target>
+        <note>Class = "UIButton"; normalTitle = "Directions"; ObjectID = "cwL-mc-1Ox";</note>
+      </trans-unit>
+      <trans-unit id="ifO-Ys-xNO.normalTitle">
+        <source>Created by X and date</source>
+        <target>Created by X and date</target>
+        <note>Class = "UIButton"; normalTitle = "Created by X and date"; ObjectID = "ifO-Ys-xNO";</note>
+      </trans-unit>
+      <trans-unit id="kGm-Dg-g6P.text">
+        <source>Followercount</source>
+        <target>Followercount</target>
+        <note>Class = "UILabel"; text = "Followercount"; ObjectID = "kGm-Dg-g6P";</note>
+      </trans-unit>
+      <trans-unit id="nhi-Mp-2iH.text">
+        <source>Post Creation and User</source>
+        <target>Post Creation and User</target>
+        <note>Class = "UILabel"; text = "Post Creation and User"; ObjectID = "nhi-Mp-2iH";</note>
+      </trans-unit>
+      <trans-unit id="uWi-7r-C9e.text">
+        <source>Username</source>
+        <target>Username</target>
+        <note>Class = "UILabel"; text = "Username"; ObjectID = "uWi-7r-C9e";</note>
+      </trans-unit>
+      <trans-unit id="wjd-do-FWy.text">
+        <source>FollowerCount</source>
+        <target>FollowerCount</target>
+        <note>Class = "UILabel"; text = "FollowerCount"; ObjectID = "wjd-do-FWy";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Now/Info.plist" source-language="en" datatype="plaintext" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Now/en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body/>
+  </file>
+</xliff>

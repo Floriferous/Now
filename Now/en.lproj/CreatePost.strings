@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "0/60"; ObjectID = "3Xn-iH-3Sf"; */
+"3Xn-iH-3Sf.text" = "0/60";
+
+/* Class = "UIButton"; normalTitle = "Confirm Location"; ObjectID = "5b7-Bq-vQg"; */
+"5b7-Bq-vQg.normalTitle" = "Confirm Location";
+
+/* Class = "UIButton"; normalTitle = "Take Picture"; ObjectID = "B5T-8m-2Ez"; */
+"B5T-8m-2Ez.normalTitle" = "Take Picture";
+
+/* Class = "UILabel"; text = "Add a Description (optional)"; ObjectID = "BOp-y7-qaL"; */
+"BOp-y7-qaL.text" = "Add a Description (optional)";
+
+/* Class = "UILabel"; text = "0/200"; ObjectID = "EyY-Qs-PFW"; */
+"EyY-Qs-PFW.text" = "0/200";
+
+/* Class = "UIButton"; normalTitle = "Confirm Picture"; ObjectID = "csb-ze-Wr2"; */
+"csb-ze-Wr2.normalTitle" = "Confirm Picture";
+
+/* Class = "UIButton"; normalTitle = "Create Post"; ObjectID = "glo-wA-fvS"; */
+"glo-wA-fvS.normalTitle" = "Create Post";
+
+/* Class = "UILabel"; text = "Give it a Title"; ObjectID = "oac-sE-2OE"; */
+"oac-sE-2OE.text" = "Give it a Title";
+
+/* Class = "UIViewController"; title = "Camera View Controller"; ObjectID = "sLe-34-CH5"; */
+"sLe-34-CH5.title" = "Camera View Controller";

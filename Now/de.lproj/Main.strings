@@ -1,0 +1,81 @@
+
+/* Class = "UIButton"; normalTitle = "_menu"; ObjectID = "0iJ-mk-PzG"; */
+"0iJ-mk-PzG.normalTitle" = "_menu";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "304-Pp-JPF"; */
+"304-Pp-JPF.text" = "Detail";
+
+/* Class = "UILabel"; text = "Post Title"; ObjectID = "63A-ph-2nR"; */
+"63A-ph-2nR.text" = "Post Title";
+
+/* Class = "UILabel"; text = "About Now"; ObjectID = "8yN-vT-Qlp"; */
+"8yN-vT-Qlp.text" = "About Now";
+
+/* Class = "UIButton"; normalTitle = "_map"; ObjectID = "A6N-Cx-Lsb"; */
+"A6N-Cx-Lsb.normalTitle" = "_map";
+
+/* Class = "UILabel"; text = "Post Distance"; ObjectID = "Db1-zf-3fz"; */
+"Db1-zf-3fz.text" = "Post Distance";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "DpJ-8l-dD9"; */
+"DpJ-8l-dD9.text" = "Detail";
+
+/* Class = "UILabel"; text = "Post Creation and User"; ObjectID = "I7t-4L-de5"; */
+"I7t-4L-de5.text" = "Post Creation and User";
+
+/* Class = "UILabel"; text = "My Profile"; ObjectID = "KEq-Mk-psn"; */
+"KEq-Mk-psn.text" = "My Profile";
+
+/* Class = "UIBarButtonItem"; title = "_camera"; ObjectID = "L6C-mi-Fbz"; */
+"L6C-mi-Fbz.title" = "_camera";
+
+/* Class = "UIBarButtonItem"; title = "_menu"; ObjectID = "NKn-G5-D3a"; */
+"NKn-G5-D3a.title" = "_menu";
+
+/* Class = "UITableViewController"; title = "Menu Table View Controller"; ObjectID = "QGG-tR-KeP"; */
+"QGG-tR-KeP.title" = "Menu Table View Controller";
+
+/* Class = "UILabel"; text = "LikeCount"; ObjectID = "VT1-EG-rPe"; */
+"VT1-EG-rPe.text" = "LikeCount";
+
+/* Class = "UILabel"; text = "Post Title"; ObjectID = "Z1o-bP-f4F"; */
+"Z1o-bP-f4F.text" = "Post Title";
+
+/* Class = "UILabel"; text = "Post Creation and User"; ObjectID = "Z7s-58-uO2"; */
+"Z7s-58-uO2.text" = "Post Creation and User";
+
+/* Class = "UILabel"; text = "Upped Posts"; ObjectID = "bAz-dQ-bf5"; */
+"bAz-dQ-bf5.text" = "Upped Posts";
+
+/* Class = "UILabel"; text = "Post Title"; ObjectID = "ceW-Cm-mAn"; */
+"ceW-Cm-mAn.text" = "Post Title";
+
+/* Class = "UIButton"; normalTitle = "_camera"; ObjectID = "cpt-Lc-SBb"; */
+"cpt-Lc-SBb.normalTitle" = "_camera";
+
+/* Class = "UILabel"; text = "LikeCount"; ObjectID = "eoC-VN-bNY"; */
+"eoC-VN-bNY.text" = "LikeCount";
+
+/* Class = "UILabel"; text = "Post Distance"; ObjectID = "jhV-Cz-O0f"; */
+"jhV-Cz-O0f.text" = "Post Distance";
+
+/* Class = "UILabel"; text = "Post Distance"; ObjectID = "lfT-uY-rPh"; */
+"lfT-uY-rPh.text" = "Post Distance";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "mGX-7z-1Lx"; */
+"mGX-7z-1Lx.text" = "Detail";
+
+/* Class = "UILabel"; text = "Post Creation and User"; ObjectID = "oKw-n0-94M"; */
+"oKw-n0-94M.text" = "Post Creation and User";
+
+/* Class = "UILabel"; text = "My Posts"; ObjectID = "sH7-Lk-TTS"; */
+"sH7-Lk-TTS.text" = "My Posts";
+
+/* Class = "UILabel"; text = "Sign Out"; ObjectID = "wx0-ki-YT2"; */
+"wx0-ki-YT2.text" = "Sign Out";
+
+/* Class = "UILabel"; text = "LikeCount"; ObjectID = "z0R-iM-tN9"; */
+"z0R-iM-tN9.text" = "LikeCount";
+
+/* Class = "UIButton"; normalTitle = "_list"; ObjectID = "zi9-og-1pj"; */
+"zi9-og-1pj.normalTitle" = "_list";

@@ -1,0 +1,18 @@
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "1hA-SO-NTF"; */
+"1hA-SO-NTF.placeholder" = "Username";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "Hjf-3U-EIJ"; */
+"Hjf-3U-EIJ.normalTitle" = "Log In";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "VDz-WO-YiL"; */
+"VDz-WO-YiL.normalTitle" = "Cancel";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "lF2-Jj-714"; */
+"lF2-Jj-714.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "nPA-lx-Jz4"; */
+"nPA-lx-Jz4.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Create Account"; ObjectID = "ucZ-am-VKH"; */
+"ucZ-am-VKH.normalTitle" = "Create Account";
